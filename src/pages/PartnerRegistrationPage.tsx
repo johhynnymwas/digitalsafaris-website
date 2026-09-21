@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { sendContact } from '../api/publicApi';
 
 type PartnerFormData = {
-    contactName: string;
+    firstName: string;
+    secondName: string;
+    password: string;
     businessName: string;
     email: string;
     phone: string;
@@ -13,7 +15,9 @@ type PartnerFormData = {
 };
 
 const initialForm: PartnerFormData = {
-    contactName: '',
+    firstName: '',
+    secondName: '',
+    password: '',
     businessName: '',
     email: '',
     phone: '',
@@ -47,7 +51,7 @@ export const PartnerRegistrationPage: React.FC = () => {
                 .join('\n');
 
             await sendContact({
-                name: formData.contactName,
+                name: `${formData.firstName} ${formData.secondName}`.trim(),
                 email: formData.email,
                 phone: formData.phone,
                 subject: 'partner',
@@ -128,18 +132,34 @@ export const PartnerRegistrationPage: React.FC = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <label className="space-y-2 text-sm font-semibold">
-                                    Contact name
+                                    First name
                                     <input
                                         required
-                                        name="contactName"
+                                        name="firstName"
                                         type="text"
-                                        autoComplete="name"
-                                        placeholder="Your full name"
-                                        value={formData.contactName}
-                                        onChange={(event) => handleChange('contactName', event.target.value)}
+                                        autoComplete="given-name"
+                                        placeholder="Your first name"
+                                        value={formData.firstName}
+                                        onChange={(event) => handleChange('firstName', event.target.value)}
                                         className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
                                     />
                                 </label>
+                                <label className="space-y-2 text-sm font-semibold">
+                                    Second name
+                                    <input
+                                        required
+                                        name="secondName"
+                                        type="text"
+                                        autoComplete="family-name"
+                                        placeholder="Your second name"
+                                        value={formData.secondName}
+                                        onChange={(event) => handleChange('secondName', event.target.value)}
+                                        className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                    />
+                                </label>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <label className="space-y-2 text-sm font-semibold">
                                     Business name
                                     <input
@@ -150,6 +170,20 @@ export const PartnerRegistrationPage: React.FC = () => {
                                         placeholder="Business name"
                                         value={formData.businessName}
                                         onChange={(event) => handleChange('businessName', event.target.value)}
+                                        className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                    />
+                                </label>
+                                <label className="space-y-2 text-sm font-semibold">
+                                    Password
+                                    <input
+                                        required
+                                        minLength={8}
+                                        name="password"
+                                        type="password"
+                                        autoComplete="new-password"
+                                        placeholder="At least 8 characters"
+                                        value={formData.password}
+                                        onChange={(event) => handleChange('password', event.target.value)}
                                         className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
                                     />
                                 </label>
