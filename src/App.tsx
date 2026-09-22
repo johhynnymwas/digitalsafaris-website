@@ -15,6 +15,7 @@ import { GetStartedPage } from "./pages/GetStartedPage";
 import { PartnerRegistrationPage } from "./pages/PartnerRegistrationPage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { LegalPage } from "./pages/LegalPage";
 import { SiteConfigProvider } from "./context/SiteConfigContext";
 import { SEO } from "./components/seo/SEO";
 
@@ -46,6 +47,8 @@ export const App: React.FC = () => {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/get-started" element={<GetStartedPage />} />
               <Route path="/partner-registration" element={<PartnerRegistrationPage />} />
+              <Route path="/privacy-policy" element={<LegalPage documentType="privacy-policy" />} />
+              <Route path="/terms-of-service" element={<LegalPage documentType="terms-of-service" />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>

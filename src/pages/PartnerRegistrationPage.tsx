@@ -55,7 +55,7 @@ const initialForm: FormData = {
 };
 
 export const PartnerRegistrationPage: React.FC = () => {
-    const { config } = useSiteConfig();
+    const config = useSiteConfig();
     const [step, setStep] = useState<'type' | 'form'>('type');
     const [selectedType, setSelectedType] = useState<BusinessType>('');
     const [formData, setFormData] = useState<FormData>(initialForm);
