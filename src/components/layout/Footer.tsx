@@ -96,10 +96,10 @@ export const Footer: React.FC = () => {
                 <Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link>
               </li>
               <li>
-                <span className="text-[#8e877e]">Privacy Policy</span>
+                <Link to="/privacy-policy" className="text-[#8e877e] hover:text-white transition-colors">Privacy Policy</Link>
               </li>
               <li>
-                <span className="text-[#8e877e]">Terms of Service</span>
+                <Link to="/terms-of-service" className="text-[#8e877e] hover:text-white transition-colors">Terms of Service</Link>
               </li>
               <li className="pt-2 text-xs text-[#8e877e]">
                 {config?.support_email && <>Direct Email: <a href={`mailto:${config.support_email}`} className="text-[#c47c2b] underline">{config.support_email}</a></>}

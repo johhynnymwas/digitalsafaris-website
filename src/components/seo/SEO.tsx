@@ -15,6 +15,8 @@ const pageMetadata: Record<string, { title: string; description: string }> = {
   "/contact": { title: "Contact DigitalSafari", description: "Contact the DigitalSafari support team about travel services, bookings, or becoming a business partner." },
   "/get-started": { title: "Get Started with DigitalSafari", description: "Choose your path and start using the DigitalSafari customer or partner platform." },
   "/partner-registration": { title: "Register as a DigitalSafari Partner", description: "Apply to join DigitalSafari and connect your hospitality business with travelers across Kenya." },
+  "/privacy-policy": { title: "Privacy Policy | DigitalSafari", description: "Read the DigitalSafari privacy policy and learn how personal information is handled." },
+  "/terms-of-service": { title: "Terms of Service | DigitalSafari", description: "Read the DigitalSafari terms of service." },
 };
 
 const setMeta = (name: string, content: string, attribute = "name") => {

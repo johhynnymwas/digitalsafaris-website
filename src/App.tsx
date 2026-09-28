@@ -15,6 +15,7 @@ import { GetStartedPage } from "./pages/GetStartedPage";
 import { PartnerRegistrationPage } from "./pages/PartnerRegistrationPage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { LegalPage } from "./pages/LegalPage";
 import { SiteConfigProvider } from "./context/SiteConfigContext";
 import { SEO } from "./components/seo/SEO";
 
@@ -27,14 +28,49 @@ const ScrollToTop = () => {
 };
 
 export const App: React.FC = () => {
+  useEffect(() => {
+    if (!import.meta.env.PROD) {
+      return;
+    }
+
+    const blockKeyboardShortcuts = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      const isDevToolsShortcut =
+        event.key === "F12" ||
+        (event.ctrlKey && event.shiftKey && key === "i") ||
+        (event.ctrlKey && event.shiftKey && key === "c") ||
+        (event.ctrlKey && key === "u") ||
+        (event.ctrlKey && key === "s") ||
+        (event.metaKey && key === "s") ||
+        (event.metaKey && event.shiftKey && key === "c");
+
+      if (isDevToolsShortcut) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+
+    const blockContextMenu = (event: MouseEvent) => {
+      event.preventDefault();
+    };
+
+    document.addEventListener("keydown", blockKeyboardShortcuts, { passive: false });
+    document.addEventListener("contextmenu", blockContextMenu, { passive: false });
+
+    return () => {
+      document.removeEventListener("keydown", blockKeyboardShortcuts);
+      document.removeEventListener("contextmenu", blockContextMenu);
+    };
+  }, []);
+
   return (
     <Router>
       <SiteConfigProvider>
         <ScrollToTop />
         <SEO />
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
           <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow overflow-x-hidden">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
@@ -46,6 +82,8 @@ export const App: React.FC = () => {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/get-started" element={<GetStartedPage />} />
               <Route path="/partner-registration" element={<PartnerRegistrationPage />} />
+              <Route path="/privacy-policy" element={<LegalPage documentType="privacy-policy" />} />
+              <Route path="/terms-of-service" element={<LegalPage documentType="terms-of-service" />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
