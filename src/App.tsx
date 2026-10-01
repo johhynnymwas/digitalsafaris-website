@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { ChatWidget } from "./components/chat/ChatWidget";
-import { AdSenseBanner } from "./components/ads/AdSenseBanner";
 
 import { HomePage } from "./pages/HomePage";
 import { ServicesPage } from "./pages/ServicesPage";
@@ -89,7 +88,6 @@ export const App: React.FC = () => {
             </Routes>
           </main>
           <Footer />
-          <AdSenseBanner />
           <ChatWidget />
         </div>
       </SiteConfigProvider>
