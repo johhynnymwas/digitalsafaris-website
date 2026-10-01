@@ -12,7 +12,7 @@ export const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "Jambo! Welcome to DigitalSafari. How can I help you plan your journey or partner your business today?"
+      text: "Jambo! Welcome to DigitalSafaris. How can I help you plan your journey or partner your business today?"
     }
   ]);
   const config = useSiteConfig();
@@ -48,7 +48,7 @@ export const ChatWidget: React.FC = () => {
                 <Compass className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-sm font-bold">DigitalSafari Concierge</h4>
+                <h4 className="text-sm font-bold">DigitalSafaris Concierge</h4>
                 <span className="text-[10px] text-[#c47c2b] font-semibold tracking-wide uppercase">Online Assistance</span>
               </div>
             </div>
@@ -114,7 +114,7 @@ export const ChatWidget: React.FC = () => {
         <button
           onClick={() => setIsOpen(true)}
           className="w-14 h-14 rounded-full bg-[#c47c2b] text-white flex items-center justify-center shadow-xl hover:bg-[#b06d20] hover:scale-105 transition-all group"
-          aria-label="Open DigitalSafari concierge chat"
+                aria-label="Open DigitalSafaris concierge chat"
         >
           <MessageSquare className="w-6 h-6 group-hover:rotate-12 transition-transform" />
         </button>

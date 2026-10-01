@@ -111,7 +111,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8e877e]">
-          <p>© {currentYear} DigitalSafari — All rights reserved.</p>
+          <p>© {currentYear} DigitalSafaris — All rights reserved.</p>
 
           <div className="flex items-center space-x-4">
             <a href={config?.social_links.instagram || undefined} target="_blank" rel="noopener noreferrer" className="hover:text-[#c47c2b] transition-colors" aria-label="Instagram">

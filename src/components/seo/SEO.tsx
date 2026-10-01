@@ -3,20 +3,20 @@ import { useLocation } from "react-router-dom";
 import { SERVICES_DATA } from "../../utils/constants";
 import { useSiteConfig } from "../../context/SiteConfigContext";
 
-const defaultDescription = "Discover stays, food, transport, and unforgettable experiences across Kenya with DigitalSafari.";
+const defaultDescription = "Discover stays, food, transport, and unforgettable experiences across Kenya with DigitalSafaris.";
 
 const pageMetadata: Record<string, { title: string; description: string }> = {
-  "/": { title: "DigitalSafari | Your Complete Travel Platform in Kenya", description: defaultDescription },
-  "/about": { title: "About DigitalSafari | Connecting African Travel", description: "Learn how DigitalSafari connects travelers with trusted hospitality and travel businesses across Kenya." },
-  "/how-it-works": { title: "How DigitalSafari Works | Travel and Hospitality in Kenya", description: "See how travelers discover services and how Kenyan businesses join the DigitalSafari platform." },
-  "/services": { title: "Travel Services in Kenya | DigitalSafari", description: "Explore accommodation, food, transport, and local experiences through DigitalSafari." },
-  "/businesses": { title: "Become a DigitalSafari Partner", description: "Grow your hotel, restaurant, transport, or experience business by joining DigitalSafari." },
-  "/faq": { title: "DigitalSafari FAQs", description: "Find answers about DigitalSafari bookings, services, partner registration, and availability in Kenya." },
-  "/contact": { title: "Contact DigitalSafari", description: "Contact the DigitalSafari support team about travel services, bookings, or becoming a business partner." },
-  "/get-started": { title: "Get Started with DigitalSafari", description: "Choose your path and start using the DigitalSafari customer or partner platform." },
-  "/partner-registration": { title: "Register as a DigitalSafari Partner", description: "Apply to join DigitalSafari and connect your hospitality business with travelers across Kenya." },
-  "/privacy-policy": { title: "Privacy Policy | DigitalSafari", description: "Read the DigitalSafari privacy policy and learn how personal information is handled." },
-  "/terms-of-service": { title: "Terms of Service | DigitalSafari", description: "Read the DigitalSafari terms of service." },
+  "/": { title: "DigitalSafaris | Your Complete Travel Platform in Kenya", description: defaultDescription },
+  "/about": { title: "About DigitalSafaris | Connecting African Travel", description: "Learn how DigitalSafaris connects travelers with trusted hospitality and travel businesses across Kenya." },
+  "/how-it-works": { title: "How DigitalSafaris Works | Travel and Hospitality in Kenya", description: "See how travelers discover services and how Kenyan businesses join the DigitalSafaris platform." },
+  "/services": { title: "Travel Services in Kenya | DigitalSafaris", description: "Explore accommodation, food, transport, and local experiences through DigitalSafaris." },
+  "/businesses": { title: "Become a DigitalSafaris Partner", description: "Grow your hotel, restaurant, transport, or experience business by joining DigitalSafaris." },
+  "/faq": { title: "DigitalSafaris FAQs", description: "Find answers about DigitalSafaris bookings, services, partner registration, and availability in Kenya." },
+  "/contact": { title: "Contact DigitalSafaris", description: "Contact the DigitalSafaris support team about travel services, bookings, or becoming a business partner." },
+  "/get-started": { title: "Get Started with DigitalSafaris", description: "Choose your path and start using the DigitalSafaris customer or partner platform." },
+  "/partner-registration": { title: "Register as a DigitalSafaris Partner", description: "Apply to join DigitalSafaris and connect your hospitality business with travelers across Kenya." },
+  "/privacy-policy": { title: "Privacy Policy | DigitalSafaris", description: "Read the DigitalSafaris privacy policy and learn how personal information is handled." },
+  "/terms-of-service": { title: "Terms of Service | DigitalSafaris", description: "Read the DigitalSafaris terms of service." },
 };
 
 const setMeta = (name: string, content: string, attribute = "name") => {
@@ -45,9 +45,9 @@ export const SEO: React.FC = () => {
   const type = pathname.startsWith("/services/") ? pathname.split("/")[2] : undefined;
   const service = type ? SERVICES_DATA.find((item) => item.id === type) : undefined;
   const metadata = service
-    ? { title: `${service.badge} in Kenya | DigitalSafari`, description: service.description }
-    : pageMetadata[pathname] || { title: "Page Not Found | DigitalSafari", description: defaultDescription };
-  const siteName = config?.site_name || "DigitalSafari";
+    ? { title: `${service.badge} in Kenya | DigitalSafaris`, description: service.description }
+    : pageMetadata[pathname] || { title: "Page Not Found | DigitalSafaris", description: defaultDescription };
+  const siteName = config?.site_name || "DigitalSafaris";
   const canonicalUrl = `${window.location.origin}${pathname}`;
 
   useEffect(() => {
