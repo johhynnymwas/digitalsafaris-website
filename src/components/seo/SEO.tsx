@@ -19,6 +19,19 @@ const pageMetadata: Record<string, { title: string; description: string }> = {
   "/terms-of-service": { title: "Terms of Service | DigitalSafaris", description: "Read the DigitalSafaris terms of service." },
 };
 
+const pageLabels: Record<string, string> = {
+  about: "About",
+  "how-it-works": "How It Works",
+  services: "Services",
+  businesses: "Businesses",
+  faq: "FAQ",
+  contact: "Contact",
+  "get-started": "Get Started",
+  "partner-registration": "Partner Registration",
+  "privacy-policy": "Privacy Policy",
+  "terms-of-service": "Terms of Service",
+};
+
 const setMeta = (name: string, content: string, attribute = "name") => {
   let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${name}"]`);
   if (!element) {
@@ -63,9 +76,8 @@ export const SEO: React.FC = () => {
     setMeta("twitter:description", metadata.description);
     setLink("canonical", canonicalUrl);
 
-    const structuredData = service
+    const mainEntity = service
       ? {
-          "@context": "https://schema.org",
           "@type": "Service",
           name: service.title,
           description: service.description,
@@ -73,12 +85,37 @@ export const SEO: React.FC = () => {
           provider: { "@type": "Organization", name: siteName, url: window.location.origin },
         }
       : {
-          "@context": "https://schema.org",
           "@type": "Organization",
           name: siteName,
           description: config?.site_description || defaultDescription,
           url: window.location.origin,
         };
+    const pathSegments = pathname.split("/").filter(Boolean);
+    const breadcrumbItems = [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: window.location.origin,
+      },
+      ...pathSegments.map((segment, index) => ({
+        "@type": "ListItem",
+        position: index + 2,
+        name: service && index === pathSegments.length - 1
+          ? service.badge
+          : pageLabels[segment] || segment,
+        item: `${window.location.origin}/${pathSegments.slice(0, index + 1).join("/")}`,
+      })),
+    ];
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@graph": [
+        mainEntity,
+        ...(pathSegments.length > 0
+          ? [{ "@type": "BreadcrumbList", itemListElement: breadcrumbItems }]
+          : []),
+      ],
+    };
     let script = document.head.querySelector<HTMLScriptElement>('script[data-seo="structured-data"]');
     if (!script) {
       script = document.createElement("script");
