@@ -35,7 +35,7 @@ export const Hero: React.FC = () => {
             </h1>
 
             <p className="text-base sm:text-lg text-gray-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              DigitalSafari connects accommodation, food ordering, transportation, and local experiences into one seamless digital platform across Kenya.
+              DigitalSafaris connects accommodation, food ordering, transportation, and local experiences into one seamless digital platform across Kenya.
             </p>
 
             {/* Action CTAs */}

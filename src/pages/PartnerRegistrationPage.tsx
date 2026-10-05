@@ -142,7 +142,7 @@ export const PartnerRegistrationPage: React.FC = () => {
                     </div>
                     <h1 className="text-3xl font-extrabold">Application received.</h1>
                     <p className="mt-3 text-sm text-[#5e5950] max-w-sm mx-auto leading-relaxed">
-                        Thanks for registering with {config?.site_name || 'DigitalSafari'}. Our team will review your application and notify you once approved.
+                        Thanks for registering with {config?.site_name || 'DigitalSafaris'}. Our team will review your application and notify you once approved.
                     </p>
                     <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                         {loginUrl && (
@@ -175,7 +175,7 @@ export const PartnerRegistrationPage: React.FC = () => {
                             Partner registration
                         </div>
                         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05]">
-                            Bring your business to <span className="text-[#c47c2b]">{config?.site_name || 'DigitalSafari'}.</span>
+                            Bring your business to <span className="text-[#c47c2b]">{config?.site_name || 'DigitalSafaris'}.</span>
                         </h1>
                         <p className="mt-6 text-base sm:text-lg text-[#5e5950] leading-relaxed max-w-md">
                             Register your business directly and start receiving customers once approved.

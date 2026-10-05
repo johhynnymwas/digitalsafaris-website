@@ -26,7 +26,7 @@ export const NotFoundPage: React.FC = () => {
             className="inline-flex items-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] text-white text-xs font-bold uppercase tracking-wider px-8 py-3.5 rounded-full shadow-sm transition-all"
           >
             <Home className="w-4 h-4" />
-            Return to DigitalSafari
+            Return to DigitalSafaris
           </Link>
         </div>
       </div>

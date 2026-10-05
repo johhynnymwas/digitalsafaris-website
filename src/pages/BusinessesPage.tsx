@@ -21,7 +21,7 @@ export const BusinessesPage: React.FC = () => {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-[#5e5950] max-w-2xl mx-auto leading-relaxed">
-          Join DigitalSafari's expanding ecosystem. Reach thousands of active travelers looking for services like yours—present and future.
+          Join the expanding DigitalSafaris ecosystem. Reach thousands of active travelers looking for services like yours—present and future.
         </p>
 
         {/* Business Category Pills */}
@@ -60,7 +60,7 @@ export const BusinessesPage: React.FC = () => {
             <span className="text-[#c47c2b]">YOUR BUSINESS.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5e5950] max-w-xl mx-auto">
-            DigitalSafari provides the tools to business owners to scale and reach more customers than ever.
+            DigitalSafaris provides business owners with tools to scale and reach more customers.
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export const BusinessesPage: React.FC = () => {
               <span className="text-[#c47c2b]">BUSINESS.</span>
             </h2>
             <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-              If you operate in travel or hospitality in Kenya, DigitalSafari is built for you. From small boutique lodges to transport fleets and local guides.
+              If you operate in travel or hospitality in Kenya, DigitalSafaris is built for you. From small boutique lodges to transport fleets and local guides.
             </p>
 
             <div className="bg-[#f4efe8] p-5 rounded-2xl border border-[#e6dfd5]">
@@ -165,7 +165,7 @@ export const BusinessesPage: React.FC = () => {
           </h2>
 
           <p className="text-sm sm:text-base text-[#5e5950] max-w-xl mx-auto leading-relaxed">
-            DigitalSafari is building the future of connected travel in Kenya. Join our growing network today.
+            DigitalSafaris is building the future of connected travel in Kenya. Join our growing network today.
           </p>
 
           <div>
@@ -173,7 +173,7 @@ export const BusinessesPage: React.FC = () => {
               to="/partner-registration"
               className="inline-flex items-center justify-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full shadow-sm transition-all transform hover:-translate-y-0.5"
             >
-              Become a DigitalSafari Partner
+              Become a DigitalSafaris Partner
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>

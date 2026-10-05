@@ -3,10 +3,10 @@ import { useLocation } from "react-router-dom";
 import { SERVICES_DATA } from "../../utils/constants";
 import { useSiteConfig } from "../../context/SiteConfigContext";
 
-const defaultDescription = "Discover stays, food, transport, and unforgettable experiences across Kenya with DigitalSafaris.";
+const defaultDescription = "DigitalSafaris is Kenya's digital travel platform, bringing accommodation, dining, transport, and local experiences together in one place. Plan and enjoy your journey with DigitalSafaris.";
 
 const pageMetadata: Record<string, { title: string; description: string }> = {
-  "/": { title: "DigitalSafaris | Your Complete Travel Platform in Kenya", description: defaultDescription },
+  "/": { title: "DigitalSafaris | Digital Travel Platform in Kenya", description: defaultDescription },
   "/about": { title: "About DigitalSafaris | Connecting African Travel", description: "Learn how DigitalSafaris connects travelers with trusted hospitality and travel businesses across Kenya." },
   "/how-it-works": { title: "How DigitalSafaris Works | Travel and Hospitality in Kenya", description: "See how travelers discover services and how Kenyan businesses join the DigitalSafaris platform." },
   "/services": { title: "Travel Services in Kenya | DigitalSafaris", description: "Explore accommodation, food, transport, and local experiences through DigitalSafaris." },
@@ -76,20 +76,23 @@ export const SEO: React.FC = () => {
     setMeta("twitter:description", metadata.description);
     setLink("canonical", canonicalUrl);
 
+    const organization = {
+      "@type": "Organization",
+      "@id": `${window.location.origin}/#organization`,
+      name: siteName,
+      alternateName: ["Digital Safaris"],
+      description: config?.site_description || defaultDescription,
+      url: window.location.origin,
+    };
     const mainEntity = service
       ? {
           "@type": "Service",
           name: service.title,
           description: service.description,
           areaServed: { "@type": "Country", name: "Kenya" },
-          provider: { "@type": "Organization", name: siteName, url: window.location.origin },
+          provider: { "@id": organization["@id"] },
         }
-      : {
-          "@type": "Organization",
-          name: siteName,
-          description: config?.site_description || defaultDescription,
-          url: window.location.origin,
-        };
+      : organization;
     const pathSegments = pathname.split("/").filter(Boolean);
     const breadcrumbItems = [
       {
@@ -111,6 +114,14 @@ export const SEO: React.FC = () => {
       "@context": "https://schema.org",
       "@graph": [
         mainEntity,
+        {
+          "@type": "WebSite",
+          name: siteName,
+          alternateName: "Digital Safaris",
+          url: window.location.origin,
+          description: defaultDescription,
+          publisher: { "@id": organization["@id"] },
+        },
         ...(pathSegments.length > 0
           ? [{ "@type": "BreadcrumbList", itemListElement: breadcrumbItems }]
           : []),

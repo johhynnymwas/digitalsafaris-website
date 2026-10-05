@@ -37,7 +37,7 @@ export const HomePage: React.FC = () => {
               </h1>
 
               <p className="text-base sm:text-lg text-gray-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                DigitalSafari connects accommodation, food ordering, transportation, and local experiences into one seamless digital platform across Kenya.
+                DigitalSafaris connects accommodation, food ordering, transportation, and local experiences into one seamless digital platform across Kenya.
               </p>
 
               {/* Action CTAs */}
@@ -115,15 +115,15 @@ export const HomePage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           <div className="space-y-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#c47c2b]">THE PROBLEM WE SOLVE</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#c47c2b]">WHAT IS DIGITALSAFARIS?</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-              No more juggling 5 different apps for one trip.
+              A more connected way to discover and experience Kenya.
             </h2>
             <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-              Travelers often have to use separate platforms for accommodation, food ordering, transport, and tour discovery. This creates unnecessary friction, lost bookings, and fragmented communication.
+              DigitalSafaris is a digital travel platform for planning and enjoying trips in Kenya. Find a place to stay, discover local food, arrange transport, and choose experiences in the places you visit.
             </p>
             <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-              DigitalSafari brings every piece of your journey together into one connected digital experience.
+              The platform connects travelers with local hospitality businesses, making it easier to discover trusted services and organize more of the journey in one place. DigitalSafaris is not limited to wildlife tours; it includes stays, meals, rides, and local activities that make a trip.
             </p>
           </div>
 
@@ -163,7 +163,7 @@ export const HomePage: React.FC = () => {
               Four pillars of a perfect journey.
             </h2>
             <p className="text-sm sm:text-base text-[#5e5950] max-w-xl mx-auto">
-              Whether you need a stay, a hot meal, a ride across town, or a safari guide, DigitalSafari has you covered.
+              Whether you need a stay, a hot meal, a ride across town, or a safari guide, DigitalSafaris has you covered.
             </p>
           </div>
 
@@ -264,7 +264,7 @@ export const HomePage: React.FC = () => {
               Are you a hotel, restaurant, or transport provider?
             </h2>
             <p className="text-sm sm:text-base text-[#9e978e] leading-relaxed max-w-2xl">
-              Join DigitalSafari to digitize your operations, receive bookings and orders, and reach thousands of active travelers across Kenya.
+              Join DigitalSafaris to digitize your operations, receive bookings and orders, and reach thousands of active travelers across Kenya.
             </p>
           </div>
 

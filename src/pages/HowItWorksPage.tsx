@@ -11,7 +11,7 @@ export const HowItWorksPage: React.FC = () => {
   const partnerUrl = LINKS.getPartnerUrl(config);
 
   const customerSteps = [
-    { num: "01", title: "Visit DigitalSafari", desc: "Browse platform services on our website or mobile portal." },
+    { num: "01", title: "Visit DigitalSafaris", desc: "Browse platform services on our website or mobile portal." },
     { num: "02", title: "Discover & Filter Services", desc: "Filter accommodation by destination, search restaurant menus, or check transport routes." },
     { num: "03", title: "Select Your Option", desc: "Compare side-by-side amenities, ratings, and transparent pricing." },
     { num: "04", title: "Open Customer App", desc: "Seamlessly transition to our live SaaS application to finalize your reservation or order." },
@@ -38,7 +38,7 @@ export const HowItWorksPage: React.FC = () => {
         </div>
 
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-[1.1]">
-          How DigitalSafari <br />
+          How DigitalSafaris <br />
           <span className="text-[#c47c2b]">works for everyone.</span>
         </h1>
 

@@ -34,7 +34,7 @@ export const ServicesPage: React.FC = () => {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-[#5e5950] max-w-2xl mx-auto leading-relaxed">
-          DigitalSafari connects your core travel components together—giving travelers and visitors a seamless accommodation, food, transport, and experience searching and booking ecosystem.
+          DigitalSafaris connects your core travel components together—giving travelers and visitors a seamless accommodation, food, transport, and experience searching and booking ecosystem.
         </p>
 
         {/* Category Pills Bar */}
@@ -164,7 +164,7 @@ export const ServicesPage: React.FC = () => {
 
                 <div className="mt-4 flex items-center justify-between text-xs text-[#5e5950] px-2">
                   <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-[#c47c2b]" /> Naivasha, Nakuru, Nairobi, Mombasa</span>
-                  <span className="font-semibold text-[#191816]">DigitalSafari Partner</span>
+                  <span className="font-semibold text-[#191816]">DigitalSafaris Partner</span>
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@ export const ServicesPage: React.FC = () => {
               </h2>
 
               <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-                Discover restaurants, menus, and meals and order food ordering options directly through the DigitalSafari platform.
+                Discover restaurants, menus, and meals and order food ordering options directly through the DigitalSafaris platform.
               </p>
 
               {/* Feature Box */}
@@ -243,7 +243,7 @@ export const ServicesPage: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#c47c2b] shrink-0 mt-0.5" />
-                    <span>Pay directly through DigitalSafari platform</span>
+                    <span>Pay directly through the DigitalSafaris platform</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#c47c2b] shrink-0 mt-0.5" />
@@ -287,7 +287,7 @@ export const ServicesPage: React.FC = () => {
               </h2>
 
               <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-                Connect with our operators to make your journey from start to finish easy—find taxis, shuttles, and transportation services all in one DigitalSafari console.
+                Connect with our operators to make your journey from start to finish easy—find taxis, shuttles, and transportation services all in one DigitalSafaris console.
               </p>
 
               {/* Pills */}
@@ -427,7 +427,7 @@ export const ServicesPage: React.FC = () => {
               </h2>
 
               <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-                DigitalSafari connects travelers with guided tours, excursions, and nature experiences directly from local tour operators and experienced guides through our platform.
+                DigitalSafaris connects travelers with guided tours, excursions, and nature experiences directly from local tour operators and experienced guides through our platform.
               </p>
 
               {/* Special Highlight Box */}
@@ -486,7 +486,7 @@ export const ServicesPage: React.FC = () => {
         <div className="bg-gradient-to-b from-[#eae3d9] to-[#f4efe8] rounded-3xl p-10 sm:p-16 text-center border border-[#e6dfd5] shadow-sm space-y-6">
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#191816]">
             Ready to experience <br />
-            <span className="text-[#c47c2b]">DigitalSafari?</span>
+            <span className="text-[#c47c2b]">DigitalSafaris?</span>
           </h2>
 
           <p className="text-sm sm:text-base text-[#5e5950] max-w-xl mx-auto leading-relaxed">

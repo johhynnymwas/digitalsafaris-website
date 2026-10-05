@@ -17,7 +17,7 @@ export const AboutPage: React.FC = () => {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-[#5e5950] max-w-2xl mx-auto leading-relaxed">
-          DigitalSafari was built to solve the fragmentation of travel, accommodation, food, and transport services across Kenya and the broader continent.
+          DigitalSafaris was built to solve the fragmentation of travel, accommodation, food, and transport services across Kenya and the broader continent.
         </p>
       </section>
 
@@ -34,7 +34,7 @@ export const AboutPage: React.FC = () => {
               Every day, thousands of visitors journey across Kenya—from Naivasha's lakesides to Nakuru's parks and Nairobi's urban hubs. Yet, finding reliable stays, arranging meals, and securing trusted local transport often requires managing dozens of disconnected channels.
             </p>
             <p className="text-sm sm:text-base text-[#5e5950] leading-relaxed">
-              DigitalSafari serves as the official digital bridge. We empower local hotels, BnBs, restaurants, and transport operators with modern technology while offering travelers a single, trusted ecosystem for their journey.
+              DigitalSafaris serves as the official digital bridge. We empower local hotels, BnBs, restaurants, and transport operators with modern technology while offering travelers a single, trusted ecosystem for their journey.
             </p>
           </div>
 

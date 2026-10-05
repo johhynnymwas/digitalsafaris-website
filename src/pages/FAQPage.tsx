@@ -27,7 +27,7 @@ export const FAQPage: React.FC = () => {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-[#5e5950] max-w-2xl mx-auto leading-relaxed">
-          Find answers to common questions about DigitalSafari services, customer bookings, and partner registration.
+          Find answers to common questions about DigitalSafaris services, customer bookings, and partner registration.
         </p>
       </section>
 

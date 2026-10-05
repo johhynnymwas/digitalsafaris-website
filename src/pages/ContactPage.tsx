@@ -43,7 +43,7 @@ export const ContactPage: React.FC = () => {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-[#5e5950] max-w-2xl mx-auto leading-relaxed">
-          Whether you have a inquiry about traveling with DigitalSafari or registering your business as a partner, our team is here to help.
+          Whether you have an inquiry about traveling with DigitalSafaris or registering your business as a partner, our team is here to help.
         </p>
       </section>
 
@@ -143,7 +143,7 @@ export const ContactPage: React.FC = () => {
                   <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto" />
                   <h4 className="text-lg font-bold">Message Received!</h4>
                   <p className="text-xs text-green-700 max-w-sm mx-auto">
-                    Asante! Thank you for contacting DigitalSafari. A representative will reach out to your email shortly.
+                    Asante! Thank you for contacting DigitalSafaris. A representative will reach out to your email shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}

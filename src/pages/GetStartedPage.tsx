@@ -19,11 +19,11 @@ export const GetStartedPage: React.FC = () => {
 
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight max-w-3xl mx-auto leading-[1.1]">
           Welcome to <br />
-          <span className="text-[#c47c2b]">DigitalSafari.</span>
+          <span className="text-[#c47c2b]">DigitalSafaris.</span>
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-[#5e5950] max-w-xl mx-auto leading-relaxed">
-          Please select your path to enter the appropriate DigitalSafari application.
+          Please select your path to enter the appropriate DigitalSafaris application.
         </p>
       </section>
 
