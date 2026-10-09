@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Building2, Loader2 } from 'lucide-
 import { Link } from 'react-router-dom';
 import { useSiteConfig } from '../context/SiteConfigContext';
 import { registerPartnerByType } from '../api/partnerApi';
+import { api } from '../api/axios';
 
 type BusinessType = 'transport' | 'restaurant' | 'accommodation' | '';
 
@@ -54,21 +55,34 @@ const initialForm: FormData = {
     towns: [],
 };
 
+interface TownOption {
+    _id: string;
+    name: string;
+}
+
 export const PartnerRegistrationPage: React.FC = () => {
     const config = useSiteConfig();
     const [step, setStep] = useState<'type' | 'form'>('type');
     const [selectedType, setSelectedType] = useState<BusinessType>('');
     const [formData, setFormData] = useState<FormData>(initialForm);
-    const [towns, setTowns] = useState<any[]>([]);
+    const [towns, setTowns] = useState<TownOption[]>([]);
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        // Fetch towns from public endpoint
-        fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/public/towns`)
-            .then((res) => res.json())
-            .then((data) => setTowns(data.towns || []))
+        api
+            .get('/public/site')
+            .then((res) => {
+                const data = res.data?.data ?? res.data;
+                const locations = Array.isArray(data.locations) ? data.locations : [];
+                setTowns(
+                    locations.map((l: { _id: string; name: string }) => ({
+                        _id: l._id,
+                        name: l.name,
+                    }))
+                );
+            })
             .catch(() => {});
     }, []);
 
@@ -79,7 +93,9 @@ export const PartnerRegistrationPage: React.FC = () => {
     const toggleTown = (id: string) => {
         setFormData((prev) => ({
             ...prev,
-            towns: prev.towns.includes(id) ? prev.towns.filter((t) => t !== id) : [...prev.towns, id],
+            towns: prev.towns.includes(id)
+                ? prev.towns.filter((t) => t !== id)
+                : [...prev.towns, id],
         }));
     };
 
@@ -106,7 +122,7 @@ export const PartnerRegistrationPage: React.FC = () => {
         try {
             setSubmitting(true);
 
-            const payload: any = {
+            const payload: Record<string, unknown> = {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 email: formData.email,
@@ -122,10 +138,17 @@ export const PartnerRegistrationPage: React.FC = () => {
                 payload.cuisine = formData.cuisine;
             }
 
-            await registerPartnerByType(selectedType, payload);
+            await registerPartnerByType(selectedType, payload as never);
             setSubmitted(true);
-        } catch (submitError: any) {
-            const msg = submitError?.response?.data?.message || "We couldn't submit your application right now. Please try again.";
+        } catch (submitError: unknown) {
+            const err = submitError as {
+                response?: { data?: { message?: string } };
+                message?: string;
+            };
+            const msg =
+                err?.response?.data?.message ||
+                err?.message ||
+                "We couldn't submit your application right now. Please try again.";
             setError(msg);
         } finally {
             setSubmitting(false);
@@ -133,7 +156,7 @@ export const PartnerRegistrationPage: React.FC = () => {
     };
 
     if (submitted) {
-        const loginUrl = config?.app_links?.[`${selectedType}_partner` as keyof typeof config.app_links];
+        const loginUrl = config?.app_links?.partner_landing;
         return (
             <div className="bg-[#f9f7f4] min-h-screen text-[#191816] flex items-center justify-center px-4">
                 <div className="text-center max-w-md">
@@ -146,12 +169,18 @@ export const PartnerRegistrationPage: React.FC = () => {
                     </p>
                     <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                         {loginUrl && (
-                            <a href={String(loginUrl)} className="inline-flex items-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] text-white text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors">
+                            <a
+                                href={String(loginUrl)}
+                                className="inline-flex items-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] text-white text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors"
+                            >
                                 Go to partner portal
                                 <ArrowRight className="w-4 h-4" />
                             </a>
                         )}
-                        <Link to="/" className="inline-flex items-center gap-2 border border-[#dcd3c7] text-[#191816] text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-full hover:bg-[#eae3d9] transition-colors">
+                        <Link
+                            to="/"
+                            className="inline-flex items-center gap-2 border border-[#dcd3c7] text-[#191816] text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-full hover:bg-[#eae3d9] transition-colors"
+                        >
                             Return home
                         </Link>
                     </div>
@@ -163,7 +192,10 @@ export const PartnerRegistrationPage: React.FC = () => {
     return (
         <div className="bg-[#f9f7f4] min-h-screen text-[#191816] pt-32 pb-20">
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Link to="/businesses" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#5e5950] hover:text-[#c47c2b] transition-colors">
+                <Link
+                    to="/businesses"
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#5e5950] hover:text-[#c47c2b] transition-colors"
+                >
                     <ArrowLeft className="w-4 h-4" />
                     Back to partners
                 </Link>
@@ -240,41 +272,93 @@ export const PartnerRegistrationPage: React.FC = () => {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <label className="space-y-2 text-sm font-semibold">
                                         First name
-                                        <input required type="text" value={formData.firstName} onChange={(e) => handleChange('firstName', e.target.value)} placeholder="First name" className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition" />
+                                        <input
+                                            required
+                                            type="text"
+                                            value={formData.firstName}
+                                            onChange={(e) => handleChange('firstName', e.target.value)}
+                                            placeholder="First name"
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        />
                                     </label>
                                     <label className="space-y-2 text-sm font-semibold">
                                         Last name
-                                        <input required type="text" value={formData.lastName} onChange={(e) => handleChange('lastName', e.target.value)} placeholder="Last name" className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition" />
+                                        <input
+                                            required
+                                            type="text"
+                                            value={formData.lastName}
+                                            onChange={(e) => handleChange('lastName', e.target.value)}
+                                            placeholder="Last name"
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        />
                                     </label>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <label className="space-y-2 text-sm font-semibold">
                                         Email
-                                        <input required type="email" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} placeholder="you@business.com" className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition" />
+                                        <input
+                                            required
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={(e) => handleChange('email', e.target.value)}
+                                            placeholder="you@business.com"
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        />
                                     </label>
                                     <label className="space-y-2 text-sm font-semibold">
                                         Phone
-                                        <input required type="tel" value={formData.phone} onChange={(e) => handleChange('phone', e.target.value)} placeholder="+254 700 000 000" className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition" />
+                                        <input
+                                            required
+                                            type="tel"
+                                            value={formData.phone}
+                                            onChange={(e) => handleChange('phone', e.target.value)}
+                                            placeholder="+254 700 000 000"
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        />
                                     </label>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <label className="space-y-2 text-sm font-semibold">
                                         Business name
-                                        <input required type="text" value={formData.businessName} onChange={(e) => handleChange('businessName', e.target.value)} placeholder="Business name" className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition" />
+                                        <input
+                                            required
+                                            type="text"
+                                            value={formData.businessName}
+                                            onChange={(e) => handleChange('businessName', e.target.value)}
+                                            placeholder="Business name"
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        />
                                     </label>
                                     <label className="space-y-2 text-sm font-semibold">
                                         Password
-                                        <input required minLength={6} type="password" value={formData.password} onChange={(e) => handleChange('password', e.target.value)} placeholder="At least 6 characters" className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition" />
+                                        <input
+                                            required
+                                            minLength={6}
+                                            type="password"
+                                            value={formData.password}
+                                            onChange={(e) => handleChange('password', e.target.value)}
+                                            placeholder="At least 6 characters"
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        />
                                     </label>
                                 </div>
 
                                 {selectedType === 'transport' && (
                                     <label className="space-y-2 text-sm font-semibold block">
                                         Transport type
-                                        <select required value={formData.businessType} onChange={(e) => handleChange('businessType', e.target.value)} className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition">
-                                            {transportTypes.map((t) => <option key={t} value={t}>{t.replace('_', ' ')}</option>)}
+                                        <select
+                                            required
+                                            value={formData.businessType}
+                                            onChange={(e) => handleChange('businessType', e.target.value)}
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        >
+                                            {transportTypes.map((t) => (
+                                                <option key={t} value={t}>
+                                                    {t.replace('_', ' ')}
+                                                </option>
+                                            ))}
                                         </select>
                                     </label>
                                 )}
@@ -282,9 +366,18 @@ export const PartnerRegistrationPage: React.FC = () => {
                                 {selectedType === 'restaurant' && (
                                     <label className="space-y-2 text-sm font-semibold block">
                                         Food type
-                                        <select required value={formData.cuisine} onChange={(e) => handleChange('cuisine', e.target.value)} className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition">
+                                        <select
+                                            required
+                                            value={formData.cuisine}
+                                            onChange={(e) => handleChange('cuisine', e.target.value)}
+                                            className="w-full rounded-xl border border-[#dcd3c7] bg-[#f9f7f4] px-4 py-3 text-sm font-normal outline-none focus:border-[#c47c2b] focus:ring-2 focus:ring-[#c47c2b]/20 transition"
+                                        >
                                             <option value="">Select food type</option>
-                                            {cuisines.map((c) => <option key={c} value={c}>{c.replace('_', ' ')}</option>)}
+                                            {cuisines.map((c) => (
+                                                <option key={c} value={c}>
+                                                    {c.replace('_', ' ')}
+                                                </option>
+                                            ))}
                                         </select>
                                     </label>
                                 )}
@@ -292,13 +385,21 @@ export const PartnerRegistrationPage: React.FC = () => {
                                 <div>
                                     <span className="text-sm font-semibold block mb-2">Towns you serve</span>
                                     <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
-                                        {towns.length === 0 && <p className="text-xs text-[#8e877e]">Loading towns...</p>}
+                                        {towns.length === 0 && (
+                                            <p className="text-xs text-[#8e877e]">
+                                                No towns available. Please try again shortly.
+                                            </p>
+                                        )}
                                         {towns.map((t) => (
                                             <button
                                                 key={t._id}
                                                 type="button"
                                                 onClick={() => toggleTown(t._id)}
-                                                className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${formData.towns.includes(t._id) ? 'bg-[#c47c2b] text-white' : 'bg-[#eae3d9] text-[#5e5950] hover:bg-[#dcd3c7]'}`}
+                                                className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+                                                    formData.towns.includes(t._id)
+                                                        ? 'bg-[#c47c2b] text-white'
+                                                        : 'bg-[#eae3d9] text-[#5e5950] hover:bg-[#dcd3c7]'
+                                                }`}
                                             >
                                                 {t.name}
                                             </button>
@@ -307,14 +408,26 @@ export const PartnerRegistrationPage: React.FC = () => {
                                 </div>
 
                                 {error && (
-                                    <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+                                    <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                                        {error}
+                                    </div>
                                 )}
 
-                                <button type="submit" disabled={submitting} className="w-full inline-flex items-center justify-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] disabled:cursor-not-allowed disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider px-6 py-4 rounded-full transition-colors">
+                                <button
+                                    type="submit"
+                                    disabled={submitting}
+                                    className="w-full inline-flex items-center justify-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] disabled:cursor-not-allowed disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider px-6 py-4 rounded-full transition-colors"
+                                >
                                     {submitting ? (
-                                        <><Loader2 className="w-4 h-4 animate-spin" />Creating account...</>
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                            Creating account...
+                                        </>
                                     ) : (
-                                        <>Create partner account<ArrowRight className="w-4 h-4" /></>
+                                        <>
+                                            Create partner account
+                                            <ArrowRight className="w-4 h-4" />
+                                        </>
                                     )}
                                 </button>
                                 <p className="text-center text-xs text-[#8e877e]">

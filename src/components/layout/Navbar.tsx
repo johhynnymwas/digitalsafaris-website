@@ -10,7 +10,7 @@ export const Navbar: React.FC = () => {
   const location = useLocation();
   const config = useSiteConfig();
   const customerUrl = LINKS.getCustomerUrl(config);
-  const partnerUrl = LINKS.getPartnerUrl(config);
+  const partnerPortalUrl = LINKS.getPartnerPortalUrl(config);
 
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;
@@ -22,8 +22,7 @@ export const Navbar: React.FC = () => {
     <header className="sticky top-0 z-50 bg-[#f9f7f4]/90 backdrop-blur-md border-b border-[#e6dfd5]/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          
-          {/* Brand Logo */}
+
           <Link to="/" className="flex items-center gap-2 group py-1">
             <img
               src="/logo.png"
@@ -32,7 +31,6 @@ export const Navbar: React.FC = () => {
             />
           </Link>
 
-          {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-[#eae3d9]/60 px-4 py-2 rounded-full border border-[#dcd3c7]">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.href);
@@ -52,7 +50,6 @@ export const Navbar: React.FC = () => {
             })}
           </nav>
 
-          {/* Action CTAs */}
           <div className="hidden md:flex items-center gap-3">
             <a
               href={customerUrl}
@@ -71,7 +68,6 @@ export const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -84,7 +80,6 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#f9f7f4] border-b border-[#e6dfd5] px-4 pt-3 pb-6 space-y-3">
           <div className="flex flex-col space-y-1">

@@ -8,10 +8,7 @@ type LegalDocumentType = "privacy-policy" | "terms-of-service";
 interface LegalDocument {
   title?: string;
   content?: string;
-  html?: string;
-  body?: string;
   updatedAt?: string;
-  updated_at?: string;
 }
 
 interface LegalPageProps {
@@ -23,9 +20,9 @@ const titles: Record<LegalDocumentType, string> = {
   "terms-of-service": "Terms of Service",
 };
 
-const getDocument = (response: { data: unknown }): LegalDocument => {
-  const data = response.data as { document?: LegalDocument; data?: LegalDocument } & LegalDocument;
-  return data.document || data.data || data;
+const backendType: Record<LegalDocumentType, string> = {
+  "privacy-policy": "privacy",
+  "terms-of-service": "terms",
 };
 
 export const LegalPage: React.FC<LegalPageProps> = ({ documentType }) => {
@@ -36,11 +33,12 @@ export const LegalPage: React.FC<LegalPageProps> = ({ documentType }) => {
   useEffect(() => {
     let isCurrent = true;
 
-    const loadDocument = async () => {
+    const load = async () => {
       try {
-        const response = await api.get(`/web/legal/${documentType}`);
+        const res = await api.get(`/public/legals/${backendType[documentType]}`);
+        const body = res.data?.data ?? res.data;
         if (isCurrent) {
-          setDocument(getDocument(response));
+          setDocument(body);
           setError(false);
         }
       } catch {
@@ -50,20 +48,23 @@ export const LegalPage: React.FC<LegalPageProps> = ({ documentType }) => {
       }
     };
 
-    loadDocument();
+    load();
     return () => {
       isCurrent = false;
     };
   }, [documentType]);
 
   const title = document?.title || titles[documentType];
-  const content = document?.content || document?.html || document?.body;
-  const updatedAt = document?.updatedAt || document?.updated_at;
+  const content = document?.content;
+  const updatedAt = document?.updatedAt;
 
   return (
     <div className="bg-[#f9f7f4] min-h-screen text-[#191816] pt-8 pb-20">
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm text-[#5e5950] hover:text-[#c47c2b] transition-colors mb-10">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-[#5e5950] hover:text-[#c47c2b] transition-colors mb-10"
+        >
           <ArrowLeft className="w-4 h-4" />
           Back to home
         </Link>
@@ -73,17 +74,27 @@ export const LegalPage: React.FC<LegalPageProps> = ({ documentType }) => {
             <FileText className="w-3.5 h-3.5" />
             Legal
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1]">{title}</h1>
-          {updatedAt && <p className="mt-4 text-sm text-[#8e877e]">Last updated: {updatedAt}</p>}
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1]">
+            {title}
+          </h1>
+          {updatedAt && (
+            <p className="mt-4 text-sm text-[#8e877e]">
+              Last updated: {new Date(updatedAt).toLocaleDateString()}
+            </p>
+          )}
         </header>
 
         <article className="mt-10 bg-white border border-[#e6dfd5] rounded-2xl p-6 sm:p-10 text-[#5e5950] leading-relaxed">
           {isLoading && <p>Loading {title.toLowerCase()}...</p>}
-          {!isLoading && error && <p>We could not load this document right now. Please try again later.</p>}
+          {!isLoading && error && (
+            <p>We could not load this document right now. Please try again later.</p>
+          )}
           {!isLoading && !error && content && (
             <div className="whitespace-pre-wrap">{content}</div>
           )}
-          {!isLoading && !error && !content && <p>This document is not available yet.</p>}
+          {!isLoading && !error && !content && (
+            <p>This document is not available yet.</p>
+          )}
         </article>
       </section>
     </div>

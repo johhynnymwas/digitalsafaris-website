@@ -8,14 +8,13 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const config = useSiteConfig();
   const customerUrl = LINKS.getCustomerUrl(config);
-  const partnerUrl = LINKS.getPartnerUrl(config);
+  const partnerPortalUrl = LINKS.getPartnerPortalUrl(config);
 
   return (
     <footer className="bg-[#141312] text-[#dcd6cd] pt-16 pb-12 border-t border-[#2a2825]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#2a2825]">
-          
-          {/* Brand Info */}
+
           <div className="md:col-span-5 space-y-4">
             <Link to="/" className="inline-block p-2 bg-white rounded-2xl shadow-sm border border-white/10 hover:opacity-95 transition-opacity">
               <img
@@ -48,68 +47,68 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Links Column 1: Explore */}
           <div className="md:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#c47c2b]">Explore</h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/about" className="hover:text-white transition-colors">About Us</Link>
-              </li>
-              <li>
-                <Link to="/how-it-works" className="hover:text-white transition-colors">How It Works</Link>
-              </li>
-              <li>
-                <Link to="/services" className="hover:text-white transition-colors">Services</Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
-              </li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/how-it-works" className="hover:text-white transition-colors">How It Works</Link></li>
+              <li><Link to="/services" className="hover:text-white transition-colors">Services</Link></li>
+              <li><Link to="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
-          {/* Links Column 2: Businesses */}
           <div className="md:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#c47c2b]">Businesses</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/partner-registration" className="hover:text-white transition-colors">Become a Partner</Link>
+                <Link to="/partner-registration" className="hover:text-white transition-colors">
+                  Become a Partner
+                </Link>
               </li>
               <li>
-                <a href={partnerUrl || "/businesses"} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                <a
+                  href={partnerPortalUrl || "/partner-registration"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors flex items-center gap-1"
+                >
                   Partner Portal <ArrowUpRight className="w-3 h-3 text-[#9e978e]" />
                 </a>
               </li>
               <li>
-                <Link to="/services/accommodation" className="hover:text-white transition-colors">Hotels & BnBs</Link>
+                <Link to="/services/accommodation" className="hover:text-white transition-colors">
+                  Hotels &amp; BnBs
+                </Link>
               </li>
               <li>
-                <Link to="/services/food" className="hover:text-white transition-colors">Restaurants</Link>
+                <Link to="/services/food" className="hover:text-white transition-colors">
+                  Restaurants
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Links Column 3: Legal & Support */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#c47c2b]">Legal & Contact</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#c47c2b]">Legal &amp; Contact</h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link>
-              </li>
-              <li>
-                <Link to="/privacy-policy" className="text-[#8e877e] hover:text-white transition-colors">Privacy Policy</Link>
-              </li>
-              <li>
-                <Link to="/terms-of-service" className="text-[#8e877e] hover:text-white transition-colors">Terms of Service</Link>
-              </li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+              <li><Link to="/privacy-policy" className="text-[#8e877e] hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms-of-service" className="text-[#8e877e] hover:text-white transition-colors">Terms of Service</Link></li>
               <li className="pt-2 text-xs text-[#8e877e]">
-                {config?.support_email && <>Direct Email: <a href={`mailto:${config.support_email}`} className="text-[#c47c2b] underline">{config.support_email}</a></>}
+                {config?.support_email && (
+                  <>
+                    Direct Email:{" "}
+                    <a href={`mailto:${config.support_email}`} className="text-[#c47c2b] underline">
+                      {config.support_email}
+                    </a>
+                  </>
+                )}
               </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8e877e]">
           <p>© {currentYear} DigitalSafaris — All rights reserved.</p>
 
