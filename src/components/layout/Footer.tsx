@@ -16,18 +16,11 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#2a2825]">
 
           <div className="md:col-span-5 space-y-4">
-            <Link to="/" className="inline-block p-2 bg-white rounded-2xl shadow-sm border border-white/10 hover:opacity-95 transition-opacity">
+            <Link to="/" className="inline-block overflow-hidden rounded-xl hover:opacity-95 transition-opacity">
               <img
-                src={config.site_logo || "/logo.png"}
+                src="/logo.png"
                 alt="DigitalSafaris Logo"
-                className="h-14 sm:h-16 w-auto object-contain"
-                style={config.site_logo_appearance ? {
-                  height: `${Math.min(64, config.site_logo_appearance.maxHeight)}px`,
-                  maxWidth: `${config.site_logo_appearance.maxWidth}px`,
-                  objectFit: config.site_logo_appearance.fit,
-                  padding: `${config.site_logo_appearance.padding}px`,
-                  borderRadius: `${config.site_logo_appearance.borderRadius}px`,
-                } : undefined}
+                className="h-14 sm:h-16 w-auto max-w-[150px] rounded-xl object-contain"
               />
             </Link>
 
