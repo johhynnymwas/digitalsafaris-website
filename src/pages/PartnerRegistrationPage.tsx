@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, CheckCircle2, Building2, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Building2, CircleAlert, Loader2, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSiteConfig } from '../context/SiteConfigContext';
 import { registerPartnerByType } from '../api/partnerApi';
@@ -156,7 +156,6 @@ export const PartnerRegistrationPage: React.FC = () => {
     };
 
     if (submitted) {
-        const loginUrl = config?.app_links?.partner_landing;
         return (
             <div className="bg-[#f9f7f4] min-h-screen text-[#191816] flex items-center justify-center px-4">
                 <div className="text-center max-w-md">
@@ -165,18 +164,17 @@ export const PartnerRegistrationPage: React.FC = () => {
                     </div>
                     <h1 className="text-3xl font-extrabold">Application received.</h1>
                     <p className="mt-3 text-sm text-[#5e5950] max-w-sm mx-auto leading-relaxed">
-                        Thanks for registering with {config?.site_name || 'DigitalSafaris'}. Our team will review your application and notify you once approved.
+                        Thanks for registering with {config?.site_name || 'DigitalSafaris'}. Your application is now under review.
                     </p>
-                    <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-                        {loginUrl && (
-                            <a
-                                href={String(loginUrl)}
-                                className="inline-flex items-center gap-2 bg-[#c47c2b] hover:bg-[#b06d20] text-white text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors"
-                            >
-                                Go to partner portal
-                                <ArrowRight className="w-4 h-4" />
-                            </a>
-                        )}
+                    <div className="mx-auto mt-6 flex max-w-sm items-start gap-3 rounded-xl border border-[#ead8bf] bg-[#fffaf2] p-4 text-left" role="status">
+                        <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-lg bg-[#f4e4cc] text-[#a7671c]">
+                            <Mail className="size-[18px]" aria-hidden="true" />
+                        </span>
+                        <p className="m-0 text-sm leading-relaxed text-[#5e5950]">
+                            We&apos;ll email <strong className="break-all text-[#30271f]">{formData.email}</strong> as soon as your account is approved, with the next steps.
+                        </p>
+                    </div>
+                    <div className="mt-8 flex justify-center">
                         <Link
                             to="/"
                             className="inline-flex items-center gap-2 border border-[#dcd3c7] text-[#191816] text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-full hover:bg-[#eae3d9] transition-colors"
@@ -408,8 +406,9 @@ export const PartnerRegistrationPage: React.FC = () => {
                                 </div>
 
                                 {error && (
-                                    <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                                        {error}
+                                    <div role="alert" aria-live="assertive" className="flex items-start gap-3 rounded-xl border border-red-200 bg-[linear-gradient(135deg,#fff8f5,#fff0eb)] px-4 py-3.5 text-red-900 shadow-[0_5px_16px_rgba(115,48,38,.08)]">
+                                        <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-red-100 text-red-700"><CircleAlert className="size-[18px]" aria-hidden="true" /></span>
+                                        <span className="min-w-0"><strong className="block text-sm font-bold">We couldn&apos;t submit your application</strong><span className="mt-0.5 block break-words text-sm leading-relaxed text-red-800">{error}</span></span>
                                     </div>
                                 )}
 
