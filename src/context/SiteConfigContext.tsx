@@ -78,8 +78,11 @@ export const SiteConfigProvider: React.FC<React.PropsWithChildren> = ({
   const [config, setConfig] = useState<SiteConfig>(DEFAULT_SITE_CONFIG);
 
   useEffect(() => {
+    let cancelled = false;
+
     getSiteConfig()
       .then((nextConfig) => {
+        if (cancelled) return;
         setConfig(nextConfig);
         const favicon = nextConfig.favicon || "/favicon.svg";
         let link = document.querySelector("link[rel='icon']") as HTMLLinkElement | null;
@@ -89,15 +92,23 @@ export const SiteConfigProvider: React.FC<React.PropsWithChildren> = ({
           document.head.appendChild(link);
         }
         void styledFaviconUrl(favicon, nextConfig.favicon_appearance)
-          .then((styled) => { link.href = styled; })
+          .then((styled) => {
+            if (!cancelled) link.href = styled;
+          })
           .catch((error: unknown) => {
+            if (cancelled) return;
             console.error("Could not apply favicon appearance settings", error);
             link.href = favicon;
           });
       })
       .catch((error: unknown) => {
+        if (cancelled) return;
         console.error("Could not load site configuration; using defaults.", error);
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

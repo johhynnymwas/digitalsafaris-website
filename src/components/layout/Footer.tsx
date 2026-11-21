@@ -11,12 +11,25 @@ export const Footer: React.FC = () => {
   const partnerPortalUrl = LINKS.getPartnerPortalUrl(config);
 
   return (
-    <footer className="bg-[#141312] text-[#dcd6cd] pt-16 pb-12 border-t border-[#2a2825]">
+    <footer className="relative isolate overflow-hidden border-t border-[#2a2825] bg-[#141312] pt-16 pb-12 text-[#dcd6cd]">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgb(27 19 12 / .26) 0%, rgb(26 19 13 / .52) 40%, rgb(18 15 12 / .84) 100%), linear-gradient(90deg, rgb(20 17 13 / .44), rgb(39 27 17 / .24) 50%, rgb(20 17 13 / .48))",
+        }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#2a2825]">
 
           <div className="md:col-span-5 space-y-4">
-            <Link to="/" className="inline-block p-2 bg-white rounded-2xl shadow-sm border border-white/10 hover:opacity-95 transition-opacity">
+            <Link to="/" className="inline-block hover:opacity-95 transition-opacity">
               <img
                 src={config.site_logo || "/logo.png"}
                 alt="DigitalSafaris Logo"
@@ -66,6 +79,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/how-it-works" className="hover:text-white transition-colors">How It Works</Link></li>
               <li><Link to="/services" className="hover:text-white transition-colors">Services</Link></li>
               <li><Link to="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+              <li><Link to="/downloads" className="hover:text-white transition-colors">Download the App</Link></li>
             </ul>
           </div>
 

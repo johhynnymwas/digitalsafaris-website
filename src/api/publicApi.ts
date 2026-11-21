@@ -3,7 +3,8 @@ import type { SiteConfig } from "../types";
 
 export const getSiteConfig = async (): Promise<SiteConfig> => {
   const res = await api.get("/public/site");
-  const data = res.data?.data ?? res.data;
+  const responseData = res.data?.data ?? res.data;
+  const data = responseData.config ?? responseData;
 
   const branding = data.branding || {};
   const general = data.general || {};
@@ -11,22 +12,24 @@ export const getSiteConfig = async (): Promise<SiteConfig> => {
   const locations = data.locations || [];
 
   const config: SiteConfig = {
-    site_name: general.appName || "Digital Safaris",
-    site_tagline: "Your journey. One platform.",
+    site_name: data.site_name || general.appName || "Digital Safaris",
+    site_tagline: data.site_tagline || general.tagline || "Your journey. One platform.",
     site_description:
+      data.site_description ||
       branding.metaDescription ||
       "DigitalSafaris connects accommodation, food, transportation, and experiences through one digital platform across Kenya.",
-    support_email: general.supportEmail || null,
-    support_phone: general.supportPhone || null,
-    whatsapp_number: general.supportPhone || null,
-    app_links: {
+    support_email: data.support_email || general.supportEmail || null,
+    support_phone: data.support_phone || general.supportPhone || null,
+    whatsapp_number:
+      data.whatsapp_number || general.whatsappNumber || general.supportPhone || null,
+    app_links: data.app_links || {
       customer: general.clientUrl || null,
       partner_landing: general.partnerUrl || null,
       transport_partner: null,
       restaurant_partner: null,
       accommodation_partner: null,
     },
-    social_links: {
+    social_links: data.social_links || {
       instagram: null,
       tiktok: null,
       facebook: null,
@@ -34,17 +37,18 @@ export const getSiteConfig = async (): Promise<SiteConfig> => {
       x: null,
       youtube: null,
     },
-    ai_chat: {
+    ai_chat: data.ai_chat || {
       enabled: true,
       name: "DigitalSafaris Concierge",
       greeting:
         "Jambo! Welcome to DigitalSafaris. How can I help you plan your journey or partner your business today?",
       color: "#c47c2b",
     },
-    site_logo: branding.logoUrl || branding.logo || "/logo.png",
-    site_logo_appearance: branding.logoAppearance,
-    favicon: branding.favicon,
-    favicon_appearance: branding.faviconAppearance,
+    site_logo:
+      general.logoUrl || data.site_logo || branding.logoUrl || branding.logo || "/logo.png",
+    site_logo_appearance: data.site_logo_appearance || branding.logoAppearance,
+    favicon: data.favicon || branding.favicon,
+    favicon_appearance: data.favicon_appearance || branding.faviconAppearance,
     payment_methods: paymentMethods,
     locations,
   };
